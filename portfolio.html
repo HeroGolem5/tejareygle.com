@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio — Teja Reygle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #080808;
+      --dark:       #101010;
+      --dark2:      #181818;
+      --dark3:      #222222;
+      --dark4:      #2e2e2e;
+      --silver:     #d0d0d0;
+      --silver-dim: #888888;
+      --white:      #f0f0f0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.45;
+    }
+
+    /* ═══ HOME LOGO ═══ */
+    .home-logo {
+      position: fixed; top: 28px; left: 36px; z-index: 1001;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 3px;
+      color: var(--silver-dim); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .home-logo:hover { color: var(--white); }
+
+    /* ═══ HAMBURGER ═══ */
+    .hamburger-btn {
+      position: fixed; top: 28px; right: 36px; z-index: 1001;
+      width: 44px; height: 44px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+      background: rgba(8,8,8,0.88);
+      border: 1px solid var(--dark4);
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+    .hamburger-btn:hover { border-color: var(--silver-dim); }
+    .hamburger-btn span {
+      display: block; width: 22px; height: 1px;
+      background: var(--silver-dim);
+      transition: transform 0.3s, opacity 0.3s, background 0.2s;
+    }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--white); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--white); }
+
+    /* ═══ NAV OVERLAY ═══ */
+    .nav-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(6,6,6,0.98);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    .nav-overlay-link {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 9vw, 100px);
+      letter-spacing: 5px;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--silver);
+      text-decoration: none;
+      line-height: 1.08;
+      transform: translateY(20px); opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease, color 0.2s, -webkit-text-stroke 0.2s;
+    }
+    .nav-overlay.open .nav-overlay-link { transform: translateY(0); opacity: 1; }
+    .nav-overlay.open .nav-overlay-link:nth-child(1) { transition-delay: 0.04s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(2) { transition-delay: 0.09s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(3) { transition-delay: 0.14s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(4) { transition-delay: 0.19s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(5) { transition-delay: 0.24s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(6) { transition-delay: 0.29s; }
+    .nav-overlay-link:hover { color: var(--white); -webkit-text-stroke-color: transparent; }
+
+    .nav-overlay-footer {
+      position: absolute; bottom: 40px;
+      display: flex; gap: 40px;
+    }
+    .nav-overlay-footer a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--silver-dim); text-decoration: none;
+      opacity: 0; transition: opacity 0.4s ease 0.32s, color 0.2s;
+    }
+    .nav-overlay.open .nav-overlay-footer a { opacity: 1; }
+    .nav-overlay-footer a:hover { color: var(--white); }
+
+    /* ═══ PAGE HEADER ═══ */
+    .page-header {
+      position: relative; z-index: 1;
+      padding: 160px 64px 80px;
+      border-bottom: 1px solid var(--dark3);
+    }
+    .page-header-inner { max-width: 1160px; margin: 0 auto; }
+    .page-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 4.5px; text-transform: uppercase;
+      color: var(--silver-dim); margin-bottom: 14px;
+      opacity: 0; animation: fadeUp 0.9s 0.2s forwards;
+    }
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 12vw, 140px);
+      letter-spacing: 3px; color: var(--white); line-height: 0.88;
+      opacity: 0; animation: fadeUp 0.9s 0.35s forwards;
+    }
+    .page-title .outline { color: transparent; -webkit-text-stroke: 1px var(--silver-dim); }
+    .page-rule {
+      width: 40px; height: 1px; background: var(--dark4);
+      margin: 28px 0;
+      opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+    }
+    .page-desc {
+      font-size: 14px; line-height: 1.85; color: var(--silver-dim); max-width: 460px;
+      opacity: 0; animation: fadeUp 0.9s 0.6s forwards;
+    }
+
+    /* ═══ FILTER BAR ═══ */
+    .filter-bar {
+      position: relative; z-index: 1;
+      padding: 0 64px;
+      max-width: calc(1160px + 128px); margin: 0 auto;
+      border-bottom: 1px solid var(--dark3);
+      display: flex; flex-wrap: wrap; gap: 0;
+      opacity: 0; animation: fadeUp 0.9s 0.75s forwards;
+    }
+    .filter-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--silver-dim); background: transparent;
+      border: none; border-bottom: 2px solid transparent;
+      padding: 18px 26px; margin-bottom: -1px;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .filter-btn.active { color: var(--white); border-bottom-color: var(--white); }
+    .filter-btn:hover { color: var(--silver); }
+
+    /* ═══ PORTFOLIO GRID ═══ */
+    .portfolio-section {
+      position: relative; z-index: 1;
+      padding: 72px 64px 100px;
+    }
+    .portfolio-inner { max-width: 1160px; margin: 0 auto; }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* ── Portfolio Item ── */
+    .portfolio-item {
+      position: relative; overflow: hidden;
+      background: var(--dark2);
+      border: 1px solid var(--dark3);
+      cursor: pointer;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .portfolio-item:hover { border-color: var(--dark4); transform: translateY(-4px); }
+
+    /* tall items span 2 rows */
+    .portfolio-item.tall { grid-row: span 2; }
+    /* wide items span 2 cols */
+    .portfolio-item.wide { grid-column: span 2; }
+
+    .portfolio-thumb {
+      position: relative;
+      width: 100%; padding-bottom: 66.67%; /* 3:2 ratio */
+      overflow: hidden; background: var(--dark3);
+    }
+    .portfolio-item.tall .portfolio-thumb { padding-bottom: 133.33%; }
+    .portfolio-item.wide .portfolio-thumb { padding-bottom: 56.25%; }
+
+    .portfolio-thumb img,
+    .portfolio-thumb video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .portfolio-item:hover .portfolio-thumb img,
+    .portfolio-item:hover .portfolio-thumb video { transform: scale(1.04); }
+
+    /* placeholder for items without media yet */
+    .portfolio-thumb-placeholder {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--dark4);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    }
+
+    /* hover overlay */
+    .portfolio-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.3) 50%, transparent 100%);
+      opacity: 0; transition: opacity 0.3s ease;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 24px;
+    }
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+
+    .overlay-category {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--silver-dim); margin-bottom: 6px;
+    }
+    .overlay-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(18px, 2.2vw, 26px);
+      letter-spacing: 2px; color: var(--white); line-height: 1;
+    }
+
+    /* always-visible bottom strip */
+    .portfolio-meta {
+      padding: 14px 18px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--dark3);
+    }
+    .meta-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; letter-spacing: 1px;
+      color: var(--silver); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .meta-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--silver-dim); white-space: nowrap; margin-left: 12px;
+    }
+
+    /* hidden state for filtering */
+    .portfolio-item.hidden {
+      display: none;
+    }
+
+    /* empty state */
+    .portfolio-empty {
+      grid-column: 1 / -1;
+      padding: 80px 0; text-align: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--dark4); display: none;
+    }
+    .portfolio-empty.visible { display: block; }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      padding: 48px 64px; background: var(--dark);
+      border-top: 1px solid var(--dark3);
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; color: var(--white); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver-dim); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 11px; color: var(--dark4); letter-spacing: 1px; }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══ MOBILE ═══ */
+    @media (max-width: 900px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .portfolio-item.wide { grid-column: span 1; }
+      .portfolio-item.wide .portfolio-thumb { padding-bottom: 66.67%; }
+    }
+    @media (max-width: 768px) {
+      .page-header { padding: 140px 24px 60px; }
+      .filter-bar { padding: 0 24px; }
+      .portfolio-section { padding: 48px 24px 72px; }
+      .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
+      .portfolio-item.tall, .portfolio-item.wide { grid-row: span 1; grid-column: span 1; }
+      .portfolio-item.tall .portfolio-thumb,
+      .portfolio-item.wide .portfolio-thumb { padding-bottom: 66.67%; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .hamburger-btn { right: 24px; top: 24px; }
+      .home-logo { left: 24px; top: 24px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOME LOGO -->
+  <a href="index.html" class="home-logo">TEJA REYGLE</a>
+
+  <!-- HAMBURGER -->
+  <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- NAV OVERLAY -->
+  <nav class="nav-overlay" id="navOverlay">
+    <a href="index.html"             class="nav-overlay-link" onclick="closeNav()">Home</a>
+    <a href="index.html#hero"        class="nav-overlay-link" onclick="closeNav()">Recent Work</a>
+    <a href="index.html#services"    class="nav-overlay-link" onclick="closeNav()">Services</a>
+    <a href="index.html#contact"     class="nav-overlay-link" onclick="closeNav()">Contact</a>
+    <a href="portfolio.html"         class="nav-overlay-link" onclick="closeNav()">Portfolio</a>
+    <a href="about.html"             class="nav-overlay-link" onclick="closeNav()">About</a>
+    <div class="nav-overlay-footer">
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;tejareygle&#64;gmail.com">tejareygle&#64;gmail.com</a>
+      <a href="https://instagram.com/Teja_Reygle" target="_blank">@Teja_Reygle</a>
+    </div>
+  </nav>
+
+  <!-- ══ PAGE HEADER ══ -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <p class="page-label">Selected Work</p>
+      <h1 class="page-title">PORT<span class="outline">FOLIO</span></h1>
+      <div class="page-rule"></div>
+      <p class="page-desc">Videography, photography, and editing across brands, events, and documentary. Use the filters to browse by category.</p>
+    </div>
+  </header>
+
+  <!-- ══ FILTER BAR ══ -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterGrid('all', this)">All</button>
+    <button class="filter-btn" onclick="filterGrid('video', this)">Videography</button>
+    <button class="filter-btn" onclick="filterGrid('photo', this)">Photography</button>
+    <button class="filter-btn" onclick="filterGrid('editing', this)">Editing</button>
+    <button class="filter-btn" onclick="filterGrid('event', this)">Events</button>
+  </div>
+
+  <!-- ══ PORTFOLIO GRID ══ -->
+  <section class="portfolio-section">
+    <div class="portfolio-inner">
+      <div class="portfolio-grid" id="portfolioGrid">
+
+        <!--
+        ═══════════════════════════════════════════════════════
+        HOW TO ADD NEW ITEMS:
+
+        Copy one of the blocks below and update:
+          • data-category: video | photo | editing | documentary | event
+          • Replace <div class="portfolio-thumb-placeholder"> with:
+              <img src="your-image.jpg" alt="Project name">
+            OR for video thumbnail:
+              <img src="your-thumbnail.jpg" alt="Project name">
+          • Update .meta-title and .meta-tag text
+          • Optional size modifiers on the outer div:
+              class="portfolio-item tall"   → taller card
+              class="portfolio-item wide"   → 2-col wide card
+              class="portfolio-item"        → standard square-ish
+        ═══════════════════════════════════════════════════════
+        -->
+
+        <!-- ITEM 1 — Hope To Walk (wide, documentary) -->
+        <div class="portfolio-item wide" data-category="video">
+          <div class="portfolio-thumb">
+            <iframe src="https://www.youtube.com/embed/P5jH3FRa3L4" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Videography</span>
+              <span class="overlay-title">HOPE TO WALK</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Hope To Walk</span>
+            <span class="meta-tag">Videography</span>
+          </div>
+        </div>
+
+        <!-- ITEM 2 — placeholder -->
+        <div class="portfolio-item tall" data-category="photo">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-placeholder">Add photo</div>
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Photography</span>
+              <span class="overlay-title">PROJECT TITLE</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Project Title</span>
+            <span class="meta-tag">Photography</span>
+          </div>
+        </div>
+
+        <!-- ITEM 3 — placeholder -->
+        <div class="portfolio-item" data-category="video">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-placeholder">Add photo</div>
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Videography</span>
+              <span class="overlay-title">PROJECT TITLE</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Project Title</span>
+            <span class="meta-tag">Videography</span>
+          </div>
+        </div>
+
+        <!-- ITEM 4 — placeholder -->
+        <div class="portfolio-item" data-category="photo">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-placeholder">Add photo</div>
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Photography</span>
+              <span class="overlay-title">PROJECT TITLE</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Project Title</span>
+            <span class="meta-tag">Photography</span>
+          </div>
+        </div>
+
+        <!-- ITEM 5 — placeholder -->
+        <div class="portfolio-item" data-category="event">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-placeholder">Add photo</div>
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Event</span>
+              <span class="overlay-title">PROJECT TITLE</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Project Title</span>
+            <span class="meta-tag">Event</span>
+          </div>
+        </div>
+
+        <!-- ITEM 6 — placeholder -->
+        <div class="portfolio-item" data-category="editing">
+          <div class="portfolio-thumb">
+            <div class="portfolio-thumb-placeholder">Add photo</div>
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Editing</span>
+              <span class="overlay-title">PROJECT TITLE</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Project Title</span>
+            <span class="meta-tag">Editing</span>
+          </div>
+        </div>
+
+        <!-- empty state (shows if a filter has no results) -->
+        <div class="portfolio-empty" id="emptyState">No work in this category yet — check back soon.</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-logo">TEJA REYGLE</div>
+    <div class="footer-links">
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;tejareygle&#64;gmail.com">Email</a>
+      <a href="https://instagram.com/Teja_Reygle" target="_blank">Instagram</a>
+      <a href="index.html#contact">Book Now</a>
+    </div>
+    <div class="footer-copy">© 2026 Teja Reygle</div>
+  </footer>
+
+  <script>
+    // NAV
+    let navOpen = false;
+    function toggleNav() {
+      navOpen = !navOpen;
+      document.getElementById('navOverlay').classList.toggle('open', navOpen);
+      document.getElementById('hamburgerBtn').classList.toggle('open', navOpen);
+      document.body.style.overflow = navOpen ? 'hidden' : '';
+    }
+    function closeNav() {
+      navOpen = false;
+      document.getElementById('navOverlay').classList.remove('open');
+      document.getElementById('hamburgerBtn').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+
+    // FILTER
+    function filterGrid(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const items = document.querySelectorAll('.portfolio-item[data-category]');
+      let visible = 0;
+      items.forEach(item => {
+        const match = category === 'all' || item.dataset.category === category;
+        item.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+
+      document.getElementById('emptyState').classList.toggle('visible', visible === 0);
+    }
+  </script>
+</body>
+</html>

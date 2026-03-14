@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teja Reygle — Videography & Photography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #080808;
+      --dark:       #101010;
+      --dark2:      #181818;
+      --dark3:      #222222;
+      --dark4:      #2e2e2e;
+      --silver:     #d0d0d0;
+      --silver-dim: #888888;
+      --white:      #f0f0f0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.45;
+    }
+
+
+
+    /* ═══ HOME LOGO ═══ */
+    .home-logo {
+      position: fixed; top: 28px; left: 36px; z-index: 1001;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 3px;
+      color: var(--silver-dim); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .home-logo:hover { color: var(--white); }
+
+    /* ═══ HAMBURGER ═══ */
+    .hamburger-btn {
+      position: fixed; top: 28px; right: 36px; z-index: 1001;
+      width: 44px; height: 44px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+      background: rgba(8,8,8,0.88);
+      border: 1px solid var(--dark4);
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s;
+    }
+    .hamburger-btn:hover { border-color: var(--silver-dim); }
+    .hamburger-btn span {
+      display: block; width: 22px; height: 1px;
+      background: var(--silver-dim);
+      transition: transform 0.3s, opacity 0.3s, background 0.2s;
+    }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--white); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--white); }
+
+    .nav-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(6,6,6,0.98);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    .nav-overlay-link {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 9vw, 100px);
+      letter-spacing: 5px;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--silver);
+      text-decoration: none;
+      line-height: 1.08;
+      transform: translateY(20px); opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease, color 0.2s, -webkit-text-stroke 0.2s;
+    }
+    .nav-overlay.open .nav-overlay-link { transform: translateY(0); opacity: 1; }
+    .nav-overlay.open .nav-overlay-link:nth-child(1) { transition-delay: 0.04s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(2) { transition-delay: 0.09s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(3) { transition-delay: 0.14s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(4) { transition-delay: 0.19s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(5) { transition-delay: 0.24s; }
+    .nav-overlay.open .nav-overlay-link:nth-child(6) { transition-delay: 0.29s; }
+    .nav-overlay-link:hover { color: var(--white); -webkit-text-stroke-color: transparent; }
+
+    .nav-overlay-footer {
+      position: absolute; bottom: 40px;
+      display: flex; gap: 40px;
+    }
+    .nav-overlay-footer a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--silver-dim); text-decoration: none;
+      opacity: 0; transition: opacity 0.4s ease 0.32s, color 0.2s;
+    }
+    .nav-overlay.open .nav-overlay-footer a { opacity: 1; }
+    .nav-overlay-footer a:hover { color: var(--white); }
+
+    /* ═══ HERO ═══ */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 64px 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 78% 30%, rgba(255,255,255,0.035) 0%, transparent 52%),
+        radial-gradient(ellipse at 18% 78%, rgba(255,255,255,0.02) 0%, transparent 48%),
+        var(--black);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+      max-width: 1200px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 860px; }
+
+    .hero-video-panel { position: relative; z-index: 1; }
+    .hero-video-wrap {
+      position: relative; padding-bottom: 56.25%;
+      background: var(--dark2); border: 1px solid var(--dark3); overflow: hidden;
+    }
+    .hero-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .hero-video-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+      color: var(--silver-dim); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      border: 1px dashed var(--dark4);
+    }
+    .hero-video-tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--silver-dim); border: 1px solid var(--dark4);
+      padding: 5px 14px; margin-bottom: 10px; margin-top: 16px;
+    }
+    .hero-video-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(18px, 2vw, 26px);
+      letter-spacing: 2px; color: var(--white); line-height: 1; margin-bottom: 8px;
+    }
+    .hero-video-desc { font-size: 13px; line-height: 1.8; color: var(--silver-dim); }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 14vw, 172px);
+      line-height: 0.88; letter-spacing: 3px; color: var(--white);
+      opacity: 0; animation: fadeUp 0.9s 0.3s forwards;
+    }
+    .hero-name .outline { color: transparent; -webkit-text-stroke: 1px var(--silver-dim); }
+
+    .hero-rule {
+      width: 52px; height: 1px; background: var(--dark4);
+      margin: 30px 0;
+      opacity: 0; animation: fadeUp 0.9s 0.55s forwards;
+    }
+    .hero-desc {
+      font-size: 15px; line-height: 1.85; color: var(--silver-dim);
+      max-width: 400px;
+      opacity: 0; animation: fadeUp 0.9s 0.7s forwards;
+    }
+    .hero-cta {
+      display: flex; gap: 16px; margin-top: 40px;
+      opacity: 0; animation: fadeUp 0.9s 0.9s forwards;
+    }
+
+    .btn-primary {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--black); background: var(--white);
+      border: none; padding: 14px 36px;  text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--silver); transform: translateY(-2px); }
+
+    .btn-secondary {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--silver-dim); background: transparent;
+      border: 1px solid var(--dark4);
+      padding: 14px 36px;  text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--silver-dim); color: var(--white); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute; bottom: 36px; right: 48px; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      opacity: 0; animation: fadeUp 0.8s 1.2s forwards;
+    }
+    .hero-scroll span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--dark4); writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 56px;
+      background: linear-gradient(to bottom, var(--silver-dim), transparent);
+      animation: scrollPulse 2.2s infinite;
+    }
+
+    /* ═══ SHARED ═══ */
+    section { position: relative; z-index: 1; }
+
+    .sec-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 4.5px; text-transform: uppercase;
+      color: var(--silver-dim); margin-bottom: 14px;
+    }
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5.5vw, 64px);
+      letter-spacing: 2px; color: var(--white); line-height: 1;
+    }
+    .sec-rule { width: 40px; height: 1px; background: var(--dark4); margin: 22px 0; }
+
+    .reveal {
+      opacity: 1; transform: translateY(0);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.animate { opacity: 0; transform: translateY(28px); }
+    .reveal.animate.visible { opacity: 1; transform: translateY(0); }
+
+    /* ═══ RECENT VIDEO ═══ */
+    #recent {
+      padding: 100px 64px;
+      background: var(--dark);
+      border-top: 1px solid var(--dark3);
+    }
+    .recent-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .recent-media { position: relative; }
+    .recent-video-wrap {
+      position: relative; padding-bottom: 56.25%;
+      background: var(--dark2); border: 1px solid var(--dark3); overflow: hidden;
+    }
+    .recent-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .recent-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+      color: var(--dark4); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      border: 1px dashed var(--dark3);
+    }
+    .recent-corner {
+      position: absolute; bottom: -14px; right: -14px;
+      width: 45%; height: 45%;
+      border: 1px solid var(--dark3); z-index: -1;
+    }
+    .recent-tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--silver-dim); border: 1px solid var(--dark4);
+      padding: 5px 14px; margin-bottom: 20px;
+    }
+    .recent-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 4.5vw, 54px);
+      letter-spacing: 2px; color: var(--white); line-height: 1; margin-bottom: 18px;
+    }
+    .recent-desc { font-size: 14px; line-height: 1.9; color: var(--silver-dim); margin-bottom: 32px; }
+
+    /* ═══ SERVICES ═══ */
+    #services {
+      padding: 100px 64px;
+      background: var(--black);
+      border-top: 1px solid var(--dark3);
+    }
+    .services-inner { max-width: 1160px; margin: 0 auto; }
+    .services-intro { max-width: 520px; margin-bottom: 64px; }
+    .services-intro p { font-size: 14px; line-height: 1.8; color: var(--silver-dim); margin-top: 14px; }
+
+    .services-tabs {
+      display: flex; flex-wrap: wrap; gap: 0;
+      margin-bottom: 44px; border-bottom: 1px solid var(--dark3);
+    }
+    .tab-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--silver-dim); background: transparent;
+      border: none; border-bottom: 2px solid transparent;
+      padding: 14px 26px;  margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+    .tab-btn.active { color: var(--white); border-bottom-color: var(--white); }
+    .tab-btn:hover { color: var(--silver); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .package-card {
+      background: var(--dark2); border: 1px solid var(--dark3);
+      padding: 28px; position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+      display: flex; flex-direction: column;
+    }
+    .package-card:hover { border-color: var(--silver-dim); transform: translateY(-4px); }
+    .package-card.featured { border-color: var(--silver-dim); }
+    .package-card.featured::before {
+      content: 'POPULAR';
+      position: absolute; top: -1px; right: 20px;
+      background: var(--white); color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px; letter-spacing: 2px; padding: 4px 10px;
+    }
+    .pkg-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--white); margin-bottom: 6px; }
+    .pkg-price { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: var(--silver); line-height: 1; margin-bottom: 18px; }
+    .pkg-price span { font-family: 'Barlow', sans-serif; font-size: 13px; color: var(--silver-dim); font-weight: 300; }
+    .pkg-features { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .pkg-features li { font-size: 13px; color: var(--silver-dim); padding-left: 16px; position: relative; line-height: 1.4; }
+    .pkg-features li::before { content: '—'; position: absolute; left: 0; color: var(--dark4); font-size: 11px; }
+    .pkg-book {
+      display: block; width: 100%; margin-top: 22px; padding: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--silver-dim); background: transparent;
+      border: 1px solid var(--dark4); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pkg-book:hover, .package-card:hover .pkg-book { border-color: var(--silver-dim); color: var(--white); }
+
+    .addons-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px; margin-top: 48px;
+    }
+    .addon-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 18px; border: 1px solid var(--dark3); font-size: 13px;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+    .addon-item:hover { border-color: var(--dark4); }
+    .addon-item.selected { border-color: var(--silver-dim); background: var(--dark3); }
+    .addon-item.selected span:first-child { color: var(--white); }
+    .addon-item span:first-child { color: var(--silver-dim); }
+    .addon-item span:last-child { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 1px; color: var(--silver); }
+
+    .form-addons {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 8px;
+    }
+    .form-addon-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 14px; border: 1px solid var(--dark3);
+      font-size: 12px; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+    .form-addon-item:hover { border-color: var(--dark4); }
+    .form-addon-item.selected { border-color: var(--silver-dim); background: var(--dark3); }
+    .form-addon-item.selected span:first-child { color: var(--white); }
+    .form-addon-item span:first-child { color: var(--silver-dim); }
+    .form-addon-item span:last-child { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 1px; color: var(--silver); }
+
+    /* ═══ CONTACT ═══ */
+    #contact {
+      padding: 100px 64px;
+      background: var(--dark);
+      border-top: 1px solid var(--dark3);
+    }
+    .contact-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .contact-left p { font-size: 14px; line-height: 1.9; color: var(--silver-dim); margin-top: 14px; max-width: 380px; }
+    .contact-details { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+    .contact-item { display: flex; align-items: center; gap: 16px; }
+    .contact-item-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--silver-dim); width: 72px; flex-shrink: 0;
+    }
+    .contact-item-val { font-size: 14px; color: var(--silver-dim); text-decoration: none; transition: color 0.2s; }
+    .contact-item-val:hover { color: var(--white); }
+
+    .booking-type-toggle { display: flex; gap: 12px; margin-bottom: 36px; }
+    .toggle-btn {
+      flex: 1; padding: 16px 12px;
+      background: var(--dark2); border: 1px solid var(--dark3);
+      color: var(--silver-dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+       transition: all 0.2s; text-align: center;
+    }
+    .toggle-btn.active { border-color: var(--silver-dim); color: var(--white); background: rgba(255,255,255,0.02); }
+    .toggle-btn:hover { border-color: var(--dark4); color: var(--silver); }
+    .toggle-desc { font-family: 'Barlow', sans-serif; font-size: 11px; letter-spacing: 0; text-transform: none; color: var(--silver-dim); margin-top: 5px; font-weight: 300; }
+
+    .booking-panel { display: none; }
+    .booking-panel.active { display: block; }
+    .booking-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--silver-dim); }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--dark2); border: 1px solid var(--dark3);
+      color: var(--white); font-family: 'Barlow', sans-serif;
+      font-size: 14px; font-weight: 300; padding: 13px 15px;
+      outline: none; transition: border-color 0.2s; 
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--silver-dim); }
+    .form-group select { appearance: none; }
+    .form-group select option { background: var(--dark2); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .consultation-note {
+      background: var(--dark2); border: 1px solid var(--dark3);
+      border-left: 2px solid var(--silver-dim);
+      padding: 24px; margin-bottom: 24px;
+    }
+    .consultation-note p { font-size: 13px; line-height: 1.8; color: var(--silver-dim); }
+    .consultation-note strong { color: var(--white); font-weight: 400; }
+
+    .form-submit {
+      align-self: flex-start;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--black); background: var(--white);
+      border: none; padding: 14px 40px; 
+      transition: background 0.2s, transform 0.2s; margin-top: 4px;
+    }
+    .form-submit:hover { background: var(--silver); transform: translateY(-2px); }
+
+    /* ═══ CLIENTS ═══ */
+    #clients {
+      padding: 56px 64px;
+      background: var(--black); border-top: 1px solid var(--dark3);
+      display: flex; align-items: center; gap: 64px; flex-wrap: wrap;
+    }
+    .clients-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--silver-dim);
+    }
+    .client-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 3px;
+      color: var(--silver-dim); -webkit-text-stroke: 0;
+      transition: color 0.3s;
+    }
+    .client-name:hover { color: var(--white); }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      padding: 48px 64px; background: var(--dark);
+      border-top: 1px solid var(--dark3);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; color: var(--white); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver-dim); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 11px; color: var(--dark4); letter-spacing: 1px; }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.2; }
+      50%      { opacity: 0.8; }
+    }
+
+    /* ═══ MOBILE ═══ */
+    @media (max-width: 768px) {
+      #hero { padding: 120px 24px 72px; }
+      #recent, #services, #contact { padding: 72px 24px; }
+      .hero-inner, .recent-inner, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .booking-type-toggle { flex-direction: column; }
+      #clients { padding: 48px 24px; gap: 32px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .hamburger-btn { right: 24px; top: 24px; }
+      .home-logo { left: 24px; top: 24px; font-size: 15px; }
+
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOME LOGO -->
+  <a href="#hero" class="home-logo" onclick="closeNav()">TEJA REYGLE</a>
+
+  <!-- HAMBURGER -->
+  <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- NAV OVERLAY -->
+  <nav class="nav-overlay" id="navOverlay">
+    <a href="#hero"     class="nav-overlay-link" onclick="closeNav()">Home</a>
+    <a href="#hero"     class="nav-overlay-link" onclick="closeNav()">Recent Work</a>
+    <a href="#services" class="nav-overlay-link" onclick="closeNav()">Services</a>
+    <a href="#contact"  class="nav-overlay-link" onclick="closeNav()">Contact</a>
+    <a href="portfolio.html" class="nav-overlay-link" onclick="closeNav()">Portfolio</a>
+    <a href="about.html"     class="nav-overlay-link" onclick="closeNav()">About</a>
+    <div class="nav-overlay-footer">
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;tejareygle&#64;gmail.com">tejareygle&#64;gmail.com</a>
+      <a href="https://instagram.com/Teja_Reygle" target="_blank">@Teja_Reygle</a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1 class="hero-name">
+          TEJA<br>
+          <span class="outline">REYGLE</span>
+        </h1>
+        <div class="hero-rule"></div>
+        <p class="hero-desc">Videography, photography, and video editing. Cinematic work for brands, artists, and events — available anywhere.</p>
+        <div class="hero-cta">
+          <a href="#contact"  class="btn-primary">Book a Project</a>
+          <a href="#services" class="btn-secondary">View Services</a>
+        </div>
+      </div>
+      <div class="hero-video-panel">
+        <div class="recent-video-wrap">
+          <iframe src="https://www.youtube.com/embed/P5jH3FRa3L4" allowfullscreen></iframe>
+        </div>
+        <div class="hero-video-tag">Latest Project</div>
+        <h3 class="hero-video-title">HOPE TO WALK</h3>
+        <p class="hero-video-desc">A short documentary following Hope To Walk — the only organization in the world providing completely free prosthetic legs to patients in Guatemala who can't access or afford care. The film walks through the leg-making process with an interview with the founder.</p>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══ SERVICES & PRICING ══ -->
+  <section id="services">
+    <div class="services-inner">
+      <div class="services-intro reveal">
+        <p class="sec-label">Services & Pricing</p>
+        <h2 class="sec-title">WHAT I OFFER</h2>
+        <div class="sec-rule"></div>
+        <p>Every project is different. These packages are a starting point — reach out if you need something custom.</p>
+      </div>
+
+      <div class="services-tabs reveal">
+        <button class="tab-btn active"  onclick="switchTab('combo',   this)">Photo + Video</button>
+        <button class="tab-btn"         onclick="switchTab('video',   this)">Videography</button>
+        <button class="tab-btn"         onclick="switchTab('photo',   this)">Photography</button>
+        <button class="tab-btn"         onclick="switchTab('editing', this)">Editing</button>
+        <button class="tab-btn"         onclick="switchTab('events',  this)">Events</button>
+      </div>
+
+      <div id="tab-photo" class="tab-panel">
+        <div class="packages-grid">
+          <div class="package-card" onclick="bookPackage('Photography — Basic ($150)')"><div class="pkg-name">Basic</div><div class="pkg-price">$150<span> flat</span></div><ul class="pkg-features"><li>1–2 hr shoot</li><li>25 edited photos</li><li>Online delivery</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card featured" onclick="bookPackage('Photography — Standard ($275)')"><div class="pkg-name">Standard</div><div class="pkg-price">$275<span> flat</span></div><ul class="pkg-features"><li>3–4 hr shoot</li><li>50 edited photos</li><li>2 locations</li><li>Online delivery</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Photography — Extended ($425)')"><div class="pkg-name">Extended</div><div class="pkg-price">$425<span> flat</span></div><ul class="pkg-features"><li>5–6 hr shoot</li><li>80+ edited photos</li><li>Multiple locations</li><li>Online delivery</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Photography — Full Day ($600)')"><div class="pkg-name">Full Day</div><div class="pkg-price">$600<span> flat</span></div><ul class="pkg-features"><li>8 hr shoot</li><li>120+ edited photos</li><li>Up to 2 locations</li><li>Online delivery</li></ul><button class="pkg-book">Book This →</button></div>
+        </div>
+      </div>
+      <div id="tab-video" class="tab-panel">
+        <div class="packages-grid">
+          <div class="package-card" onclick="bookPackage('Videography — Short-Form ($200)')"><div class="pkg-name">Short-Form</div><div class="pkg-price">$200<span> flat</span></div><ul class="pkg-features"><li>1–2 hr shoot</li><li>1 video up to 90 sec</li><li>Color graded</li><li>Licensed music</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card featured" onclick="bookPackage('Videography — Standard ($350)')"><div class="pkg-name">Standard</div><div class="pkg-price">$350<span> flat</span></div><ul class="pkg-features"><li>2–3 hr shoot</li><li>1 video up to 3 min</li><li>Full post-production</li><li>Licensed music</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Videography — Premium ($550)')"><div class="pkg-name">Premium</div><div class="pkg-price">$550<span> flat</span></div><ul class="pkg-features"><li>Half day shoot</li><li>1 video up to 6 min</li><li>Full post-production</li><li>Licensed music</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Videography — Brand Video ($900)')"><div class="pkg-name">Brand Video</div><div class="pkg-price">$900<span> flat</span></div><ul class="pkg-features"><li>Full day shoot</li><li>2 videos up to 10 min</li><li>Full post-production</li><li>Licensed music</li></ul><button class="pkg-book">Book This →</button></div>
+        </div>
+      </div>
+      <div id="tab-combo" class="tab-panel active">
+        <div class="packages-grid">
+          <div class="package-card" onclick="bookPackage('Combo — Starter ($300)')"><div class="pkg-name">Starter</div><div class="pkg-price">$300<span> flat</span></div><ul class="pkg-features"><li>2 hr shoot</li><li>20 edited photos</li><li>1 short video (90 sec)</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card featured" onclick="bookPackage('Combo — Event ($500)')"><div class="pkg-name">Event</div><div class="pkg-price">$500<span> flat</span></div><ul class="pkg-features"><li>4 hr shoot</li><li>50 edited photos</li><li>1 video up to 3 min</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Combo — Business ($850)')"><div class="pkg-name">Business</div><div class="pkg-price">$850<span> flat</span></div><ul class="pkg-features"><li>Full day shoot</li><li>80+ edited photos</li><li>2 videos</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Combo — Premium Brand ($1,200)')"><div class="pkg-name">Premium Brand</div><div class="pkg-price">$1,200<span> flat</span></div><ul class="pkg-features"><li>Full day shoot</li><li>120+ edited photos</li><li>3 videos + reels</li></ul><button class="pkg-book">Book This →</button></div>
+        </div>
+      </div>
+      <div id="tab-editing" class="tab-panel">
+        <div class="packages-grid">
+          <div class="package-card" onclick="bookPackage('Editing — Quick Cut ($75)')"><div class="pkg-name">Quick Cut</div><div class="pkg-price">$75<span> flat</span></div><ul class="pkg-features"><li>Video under 2 min</li><li>Basic edit</li><li>48–72 hr turnaround</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card featured" onclick="bookPackage('Editing — Standard ($150)')"><div class="pkg-name">Standard</div><div class="pkg-price">$150<span> flat</span></div><ul class="pkg-features"><li>Video 2–5 min</li><li>Color grade + sound mix</li><li>Revisions included</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Editing — Advanced ($250)')"><div class="pkg-name">Advanced</div><div class="pkg-price">$250<span> flat</span></div><ul class="pkg-features"><li>Video 5–10 min</li><li>Full post-production</li><li>Revisions included</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Editing — Premium ($350+)')"><div class="pkg-name">Premium</div><div class="pkg-price">$350+<span> flat</span></div><ul class="pkg-features"><li>Music video / wedding</li><li>Long-form content</li><li>Full post-production</li></ul><button class="pkg-book">Book This →</button></div>
+        </div>
+      </div>
+      <div id="tab-events" class="tab-panel">
+        <div class="packages-grid">
+          <div class="package-card" onclick="bookPackage('Event — Basic ($175)')"><div class="pkg-name">Basic</div><div class="pkg-price">$175<span> flat</span></div><ul class="pkg-features"><li>2–3 hrs</li><li>Photos only</li><li>40 edited photos</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card featured" onclick="bookPackage('Event — Standard ($325)')"><div class="pkg-name">Standard</div><div class="pkg-price">$325<span> flat</span></div><ul class="pkg-features"><li>3–4 hrs</li><li>Photos + highlight clip</li><li>Full post-production</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Event — Full Coverage ($500)')"><div class="pkg-name">Full Coverage</div><div class="pkg-price">$500<span> flat</span></div><ul class="pkg-features"><li>Full event</li><li>Photos + full video edit</li><li>Full post-production</li></ul><button class="pkg-book">Book This →</button></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:56px;">
+        <p class="sec-label">Add-Ons</p>
+        <div class="addons-grid">
+          <div class="addon-item" onclick="toggleAddon(this)" data-addon="Rush Delivery (48hr) +$75"><span>Rush Delivery (48hr)</span><span>+$75</span></div>
+          <div class="addon-item" onclick="toggleAddon(this)" data-addon="Extra Photos (per 20) +$50"><span>Extra Photos (per 20)</span><span>+$50</span></div>
+          <div class="addon-item" onclick="toggleAddon(this)" data-addon="Vertical / Reels Cut +$50"><span>Vertical / Reels Cut</span><span>+$50</span></div>
+          <div class="addon-item" onclick="toggleAddon(this)" data-addon="Same-Day Sneak Peek +$40"><span>Same-Day Sneak Peek</span><span>+$40</span></div>
+          <div class="addon-item" onclick="toggleAddon(this)" data-addon="Additional Location +$75"><span>Additional Location</span><span>+$75</span></div>
+          <div class="addon-item" onclick="toggleAddon(this)" data-addon="Licensed Music +$30"><span>Licensed Music</span><span>+$30</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="sec-label">Get In Touch</p>
+        <h2 class="sec-title">LET'S WORK TOGETHER</h2>
+        <div class="sec-rule"></div>
+        <p>Available for projects everywhere. Reach out — no commitment, just a conversation.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <span class="contact-item-label">Email</span>
+            <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;tejareygle&#64;gmail.com" class="contact-item-val">tejareygle&#64;gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">Phone</span>
+            <a href="tel:+15402850863" class="contact-item-val">+1 (540) 285-0863</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">Instagram</span>
+            <a href="https://instagram.com/Teja_Reygle" target="_blank" class="contact-item-val">@Teja_Reygle</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="booking-type-toggle">
+          <button class="toggle-btn active" onclick="switchBooking('request', this)">
+            Submit a Request
+            <div class="toggle-desc">Know what you need? Fill out a brief.</div>
+          </button>
+          <button class="toggle-btn" onclick="switchBooking('consult', this)">
+            Book a Call
+            <div class="toggle-desc">Not sure yet? Let's talk first.</div>
+          </button>
+        </div>
+
+        <div id="booking-request" class="booking-panel active">
+          <form class="booking-form" name="booking-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="booking-request"/>
+            <input type="hidden" name="bot-field" style="display:none"/>
+            <div class="form-row">
+              <div class="form-group"><label>Name</label><input type="text" name="name" placeholder="Full name"/></div>
+              <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="your@email.com"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Phone (optional)</label><input type="tel" name="phone" placeholder="+1 (000) 000-0000"/></div>
+              <div class="form-group"><label>Project Date</label><input type="date" name="date"/></div>
+            </div>
+            <div class="form-group">
+              <label>Service</label>
+              <select name="service">
+                <option value="" disabled selected>Select a package</option>
+                <optgroup label="Photography"><option>Photography — Basic ($150)</option><option>Photography — Standard ($275)</option><option>Photography — Extended ($425)</option><option>Photography — Full Day ($600)</option></optgroup>
+                <optgroup label="Videography"><option>Videography — Short-Form ($200)</option><option>Videography — Standard ($350)</option><option>Videography — Premium ($550)</option><option>Videography — Brand Video ($900)</option></optgroup>
+                <optgroup label="Photo + Video"><option>Combo — Starter ($300)</option><option>Combo — Event ($500)</option><option>Combo — Business ($850)</option><option>Combo — Premium Brand ($1,200)</option></optgroup>
+                <optgroup label="Editing Only"><option>Editing — Quick Cut ($75)</option><option>Editing — Standard ($150)</option><option>Editing — Advanced ($250)</option><option>Editing — Premium ($350+)</option></optgroup>
+                <optgroup label="Events"><option>Event — Basic ($175)</option><option>Event — Standard ($325)</option><option>Event — Full Coverage ($500)</option></optgroup>
+                <option>Custom / Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Add-Ons <span style="font-weight:300;color:var(--silver-dim);letter-spacing:0;text-transform:none;font-size:11px;">(select any that apply)</span></label>
+              <div class="form-addons">
+                <div class="form-addon-item" onclick="toggleFormAddon(this)" data-addon="Rush Delivery (48hr) +$75"><span>Rush Delivery (48hr)</span><span>+$75</span></div>
+                <div class="form-addon-item" onclick="toggleFormAddon(this)" data-addon="Extra Photos (per 20) +$50"><span>Extra Photos (per 20)</span><span>+$50</span></div>
+                <div class="form-addon-item" onclick="toggleFormAddon(this)" data-addon="Vertical / Reels Cut +$50"><span>Vertical / Reels Cut</span><span>+$50</span></div>
+                <div class="form-addon-item" onclick="toggleFormAddon(this)" data-addon="Same-Day Sneak Peek +$40"><span>Same-Day Sneak Peek</span><span>+$40</span></div>
+                <div class="form-addon-item" onclick="toggleFormAddon(this)" data-addon="Additional Location +$75"><span>Additional Location</span><span>+$75</span></div>
+                <div class="form-addon-item" onclick="toggleFormAddon(this)" data-addon="Licensed Music +$30"><span>Licensed Music</span><span>+$30</span></div>
+              </div>
+            </div>
+            <div class="form-group"><label>Project Details</label><textarea name="details" placeholder="Location, vibe, deadline — any details help..."></textarea></div>
+            <input type="hidden" name="addons" id="addons-input" value=""/>
+            <button type="submit" class="form-submit">Send Request →</button>
+          </form>
+        </div>
+
+        <div id="booking-consult" class="booking-panel">
+          <div class="consultation-note">
+            <p>Not sure which package fits? <strong>Consultations are always free.</strong> We'll hop on a quick call, you tell me what you're going for, and we figure out the best approach together.</p>
+          </div>
+          <form class="booking-form" name="booking-consult" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="booking-consult"/>
+            <input type="hidden" name="bot-field" style="display:none"/>
+            <div class="form-row">
+              <div class="form-group"><label>Name</label><input type="text" name="name" placeholder="Full name"/></div>
+              <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="your@email.com"/></div>
+            </div>
+            <div class="form-group">
+              <label>Best time to reach you</label>
+              <select name="availability"><option value="" disabled selected>Select a window</option><option>Weekday mornings (9am–12pm)</option><option>Weekday afternoons (12pm–5pm)</option><option>Weekday evenings (5pm–8pm)</option><option>Weekends</option><option>Flexible</option></select>
+            </div>
+            <div class="form-group"><label>Project overview</label><textarea name="overview" placeholder="Just a quick overview — we'll cover everything on the call."></textarea></div>
+            <button type="submit" class="form-submit">Request a Call →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CLIENTS ══ -->
+  <section id="clients">
+    <span class="clients-label">Trusted By</span>
+    <div class="client-name">Off The Ground</div>
+    <div class="client-name">InStill Mindfulness</div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-logo">TEJA REYGLE</div>
+    <div class="footer-links">
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;tejareygle&#64;gmail.com">Email</a>
+      <a href="https://instagram.com/Teja_Reygle" target="_blank">Instagram</a>
+      <a href="#contact">Book Now</a>
+    </div>
+    <div class="footer-copy">© 2026 Teja Reygle</div>
+  </footer>
+
+  <script>
+    // NAV
+    let navOpen=false;
+    function toggleNav(){
+      navOpen=!navOpen;
+      document.getElementById('navOverlay').classList.toggle('open',navOpen);
+      document.getElementById('hamburgerBtn').classList.toggle('open',navOpen);
+      document.body.style.overflow=navOpen?'hidden':'';
+    }
+    function closeNav(){
+      navOpen=false;
+      document.getElementById('navOverlay').classList.remove('open');
+      document.getElementById('hamburgerBtn').classList.remove('open');
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeNav(); });
+
+    // REVEAL
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    },{threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>{
+      el.classList.add('animate');
+      obs.observe(el);
+    });
+
+    // TABS
+    function switchTab(name,btn){
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.getElementById('tab-'+name).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // BOOKING
+    function switchBooking(name,btn){
+      document.querySelectorAll('.booking-panel').forEach(p=>p.classList.remove('active'));
+      document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
+      document.getElementById('booking-'+name).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // BOOK PACKAGE — scroll to contact and pre-select the service
+    function bookPackage(packageName) {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      // Switch to the request form
+      document.querySelectorAll('.booking-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('booking-request').classList.add('active');
+      document.querySelector('.toggle-btn').classList.add('active');
+      // Set the select value after scroll lands
+      setTimeout(function() {
+        var sel = document.querySelector('select[name="service"]');
+        for (var i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].text === packageName) { sel.selectedIndex = i; break; }
+        }
+      }, 600);
+    }
+
+    // ADDON TOGGLE — highlight selected add-ons and sync to hidden form field
+    function toggleAddon(el) {
+      el.classList.toggle('selected');
+      var selected = Array.from(document.querySelectorAll('.addon-item.selected'))
+        .map(function(a) { return a.dataset.addon; });
+      var input = document.getElementById('addons-input');
+      if (input) input.value = selected.join(', ');
+    }
+    // FORM ADDON TOGGLE
+    function toggleFormAddon(el) {
+      el.classList.toggle('selected');
+      var selected = Array.from(document.querySelectorAll('.form-addon-item.selected'))
+        .map(function(a) { return a.dataset.addon; });
+      var input = document.getElementById('addons-input');
+      if (input) input.value = selected.length ? selected.join(', ') : '';
+    }
+
+    // SUBMIT
+    function handleSubmit(e){
+      e.preventDefault();
+      const btn=e.target, orig=btn.textContent;
+      btn.textContent="Sent! I'll be in touch soon.";
+      btn.style.background='#2d6a4f'; btn.style.color='#fff';
+      setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; btn.style.color=''; },4000);
+    }
+    // EMAIL - no JS needed, entities handle it
+  </script>
+</body>
+</html>
