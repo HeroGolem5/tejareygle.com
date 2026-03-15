@@ -205,10 +205,14 @@
       transition: transform 0.5s ease;
     }
     .portfolio-thumb iframe {
-      display: block;
+      position: absolute;
+      inset: 0;
       width: 100%;
-      aspect-ratio: 16/9;
+      height: 100%;
       border: none;
+    }
+    .portfolio-item.wide .portfolio-thumb {
+      padding-bottom: 56.25%;
     }
     .portfolio-item:hover .portfolio-thumb img { transform: scale(1.04); }
 
