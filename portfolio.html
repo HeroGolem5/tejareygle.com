@@ -269,6 +269,26 @@
     }
     .portfolio-empty.visible { display: block; }
 
+    /* ═══ LIGHTBOX ═══ */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.95);
+      align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 90vh;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 32px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--silver-dim); background: none; border: none;
+      cursor: pointer; transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: var(--white); }
+
     /* ═══ FOOTER ═══ */
     footer {
       padding: 48px 64px; background: var(--dark);
@@ -390,8 +410,8 @@
           </div>
         </div>
 
-        <!-- ITEM 2 — Spaceholder 1 (wide, photo) -->
-        <div class="portfolio-item wide" data-category="photo">
+        <!-- ITEM 2 — Spaceholder 1 (wide, horizontal) -->
+        <div class="portfolio-item wide" data-category="photo" onclick="openLightbox('spaceholder_1.jpg')">
           <div class="portfolio-thumb">
             <img src="spaceholder_1.jpg" alt="InStill Spaceholder Awards">
             <div class="portfolio-overlay">
@@ -405,8 +425,8 @@
           </div>
         </div>
 
-        <!-- ITEM 3 — Father Sun 3 (tall, photo) -->
-        <div class="portfolio-item tall" data-category="photo">
+        <!-- ITEM 3 — Father Sun 3 (tall, vertical) + Items 4 & 5 fill the two rows beside it -->
+        <div class="portfolio-item tall" data-category="photo" onclick="openLightbox('father_sun_3.jpg')">
           <div class="portfolio-thumb">
             <img src="father_sun_3.jpg" alt="Father Sun">
             <div class="portfolio-overlay">
@@ -420,8 +440,8 @@
           </div>
         </div>
 
-        <!-- ITEM 4 — Spaceholder 2 (standard, photo) -->
-        <div class="portfolio-item" data-category="photo">
+        <!-- ITEM 4 — Spaceholder 2 (standard) -->
+        <div class="portfolio-item" data-category="photo" onclick="openLightbox('spaceholder_2.jpg')">
           <div class="portfolio-thumb">
             <img src="spaceholder_2.jpg" alt="InStill Spaceholder Awards">
             <div class="portfolio-overlay">
@@ -435,38 +455,8 @@
           </div>
         </div>
 
-        <!-- ITEM 5 — Inspired Elders 1 (standard, photo) -->
-        <div class="portfolio-item" data-category="photo">
-          <div class="portfolio-thumb">
-            <img src="inspired_elders_1.jpg" alt="InSpired Elders">
-            <div class="portfolio-overlay">
-              <span class="overlay-category">Photography</span>
-              <span class="overlay-title">INSPIRED ELDERS</span>
-            </div>
-          </div>
-          <div class="portfolio-meta">
-            <span class="meta-title">InSpired Elders</span>
-            <span class="meta-tag">Photography</span>
-          </div>
-        </div>
-
-        <!-- ITEM 6 — Shrine 1 (tall, photo) -->
-        <div class="portfolio-item tall" data-category="photo">
-          <div class="portfolio-thumb">
-            <img src="shrine_1.jpg" alt="Live at The Shrine">
-            <div class="portfolio-overlay">
-              <span class="overlay-category">Photography</span>
-              <span class="overlay-title">LIVE AT THE SHRINE</span>
-            </div>
-          </div>
-          <div class="portfolio-meta">
-            <span class="meta-title">Live at The Shrine</span>
-            <span class="meta-tag">Photography</span>
-          </div>
-        </div>
-
-        <!-- ITEM 7 — Inspired Elders 2 (wide, photo) -->
-        <div class="portfolio-item wide" data-category="photo">
+        <!-- ITEM 5 — Inspired Elders 2 (standard, fills row beside tall) -->
+        <div class="portfolio-item" data-category="photo" onclick="openLightbox('inspired_elders_2.jpg')">
           <div class="portfolio-thumb">
             <img src="inspired_elders_2.jpg" alt="InSpired Elders">
             <div class="portfolio-overlay">
@@ -480,8 +470,8 @@
           </div>
         </div>
 
-        <!-- ITEM 8 — Father Sun 1 (standard, photo) -->
-        <div class="portfolio-item" data-category="photo">
+        <!-- ITEM 6 — Father Sun 1 (wide, horizontal) -->
+        <div class="portfolio-item wide" data-category="photo" onclick="openLightbox('father_sun_1.jpg')">
           <div class="portfolio-thumb">
             <img src="father_sun_1.jpg" alt="Father Sun">
             <div class="portfolio-overlay">
@@ -495,8 +485,23 @@
           </div>
         </div>
 
-        <!-- ITEM 9 — Shrine 2 (standard, photo) -->
-        <div class="portfolio-item" data-category="photo">
+        <!-- ITEM 7 — Shrine 1 (tall, vertical) + Items 8 & 9 fill beside it -->
+        <div class="portfolio-item tall" data-category="photo" onclick="openLightbox('shrine_1.jpg')">
+          <div class="portfolio-thumb">
+            <img src="shrine_1.jpg" alt="Live at The Shrine">
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Photography</span>
+              <span class="overlay-title">LIVE AT THE SHRINE</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Live at The Shrine</span>
+            <span class="meta-tag">Photography</span>
+          </div>
+        </div>
+
+        <!-- ITEM 8 — Shrine 2 (standard) -->
+        <div class="portfolio-item" data-category="photo" onclick="openLightbox('shrine_2.jpg')">
           <div class="portfolio-thumb">
             <img src="shrine_2.jpg" alt="Live at The Shrine">
             <div class="portfolio-overlay">
@@ -510,12 +515,33 @@
           </div>
         </div>
 
+        <!-- ITEM 9 — Inspired Elders 1 (standard, fills row beside tall) -->
+        <div class="portfolio-item" data-category="photo" onclick="openLightbox('inspired_elders_1.jpg')">
+          <div class="portfolio-thumb">
+            <img src="inspired_elders_1.jpg" alt="InSpired Elders">
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Photography</span>
+              <span class="overlay-title">INSPIRED ELDERS</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">InSpired Elders</span>
+            <span class="meta-tag">Photography</span>
+          </div>
+        </div>
+
         <!-- empty state -->
         <div class="portfolio-empty" id="emptyState">No work in this category yet — check back soon.</div>
 
       </div>
     </div>
   </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">Close ✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
 
   <!-- ══ FOOTER ══ -->
   <footer>
@@ -544,6 +570,21 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+
+    // LIGHTBOX
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.getElementById('lightbox-img').src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
 
     // FILTER
     function filterGrid(category, btn) {
