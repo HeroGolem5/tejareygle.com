@@ -179,18 +179,14 @@
       break-inside: avoid;
       margin-bottom: 16px;
       position: relative;
-      overflow: hidden;
       background: var(--dark2);
       border: 1px solid var(--dark3);
       cursor: pointer;
       transition: border-color 0.3s, transform 0.3s;
-      display: block;
     }
     .portfolio-item:hover { border-color: var(--silver-dim); transform: translateY(-4px); }
-    .portfolio-item.wide {
-      column-span: all;
-    }
 
+    /* ── Thumb ── */
     .portfolio-thumb {
       position: relative;
       width: 100%;
@@ -198,22 +194,31 @@
       background: var(--dark3);
     }
 
+    /* Photos: natural height, no cropping */
     .portfolio-thumb img {
       display: block;
       width: 100%;
       height: auto;
       transition: transform 0.5s ease;
     }
-    .portfolio-thumb iframe {
-      display: block;
+    .portfolio-item:hover .portfolio-thumb img { transform: scale(1.04); }
+
+    /* Horizontal videos: 16:9 */
+    .portfolio-thumb.video-thumb {
+      padding-bottom: 56.25%;
+    }
+    /* Vertical videos: 9:16 */
+    .portfolio-thumb.vertical-thumb {
+      padding-bottom: 177.78%;
+    }
+    .portfolio-thumb.video-thumb iframe,
+    .portfolio-thumb.vertical-thumb iframe {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      aspect-ratio: 16/9;
+      height: 100%;
       border: none;
     }
-    .portfolio-thumb.vertical iframe {
-      aspect-ratio: 9/16;
-    }
-    .portfolio-item:hover .portfolio-thumb img { transform: scale(1.04); }
 
     /* hover overlay */
     .portfolio-overlay {
@@ -392,7 +397,7 @@
 
         <!-- ITEM 1 — Hope To Walk (video) -->
         <div class="portfolio-item" data-category="video">
-          <div class="portfolio-thumb">
+          <div class="portfolio-thumb video-thumb">
             <iframe src="https://www.youtube.com/embed/P5jH3FRa3L4" allowfullscreen></iframe>
             <div class="portfolio-overlay">
               <span class="overlay-category">Videography</span>
@@ -407,7 +412,7 @@
 
         <!-- ITEM 2 — Burlap (video) -->
         <div class="portfolio-item" data-category="video">
-          <div class="portfolio-thumb vertical">
+          <div class="portfolio-thumb vertical-thumb">
             <iframe src="https://www.youtube.com/embed/Pg0pSgrVmVA" allowfullscreen></iframe>
             <div class="portfolio-overlay">
               <span class="overlay-category">Videography</span>
@@ -422,7 +427,7 @@
 
         <!-- ITEM 2b — Spaceholder Awards (video + event) -->
         <div class="portfolio-item" data-category="video event">
-          <div class="portfolio-thumb">
+          <div class="portfolio-thumb video-thumb">
             <iframe src="https://www.youtube.com/embed/ss_PwMJhChI" allowfullscreen></iframe>
             <div class="portfolio-overlay">
               <span class="overlay-category">Videography</span>
@@ -437,7 +442,7 @@
 
         <!-- ITEM 3 — Glen David Andrews (editing) -->
         <div class="portfolio-item" data-category="editing">
-          <div class="portfolio-thumb">
+          <div class="portfolio-thumb video-thumb">
             <iframe src="https://www.youtube.com/embed/LYwXeL0DOf4" allowfullscreen></iframe>
             <div class="portfolio-overlay">
               <span class="overlay-category">Editing</span>
@@ -452,7 +457,7 @@
 
         <!-- ITEM 4 — Live at The Shrine (video + event) -->
         <div class="portfolio-item" data-category="video event">
-          <div class="portfolio-thumb">
+          <div class="portfolio-thumb video-thumb">
             <iframe src="https://www.youtube.com/embed/yxV0Yb5cbG8" allowfullscreen></iframe>
             <div class="portfolio-overlay">
               <span class="overlay-category">Videography</span>
@@ -467,7 +472,7 @@
 
         <!-- ITEM 5 — Kayaking (editing) -->
         <div class="portfolio-item" data-category="editing">
-          <div class="portfolio-thumb">
+          <div class="portfolio-thumb video-thumb">
             <iframe src="https://www.youtube.com/embed/CFr2lA2mamY" allowfullscreen></iframe>
             <div class="portfolio-overlay">
               <span class="overlay-category">Editing</span>
@@ -482,7 +487,7 @@
 
         <!-- ITEM 7 — Ryo Sky (editing) -->
         <div class="portfolio-item" data-category="editing">
-          <div class="portfolio-thumb vertical">
+          <div class="portfolio-thumb vertical-thumb">
             <iframe src="https://www.youtube.com/embed/n7BRwLipQJg" allowfullscreen></iframe>
             <div class="portfolio-overlay">
               <span class="overlay-category">Editing</span>
