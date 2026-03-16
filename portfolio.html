@@ -219,6 +219,11 @@
     .portfolio-item[data-category="video event"] .portfolio-thumb {
       padding-bottom: 56.25%;
     }
+
+    /* Catch-all: any thumb containing an iframe gets height */
+    .portfolio-thumb:has(iframe) {
+      padding-bottom: 56.25%;
+    }
     .portfolio-item:hover .portfolio-thumb img { transform: scale(1.04); }
 
     /* hover overlay */
@@ -457,18 +462,18 @@
           </div>
         </div>
 
-        <!-- ITEM 4 — Live at The Shrine (event) -->
-        <div class="portfolio-item" data-category="event">
+        <!-- ITEM 4 — Live at The Shrine (video + event) -->
+        <div class="portfolio-item" data-category="video event">
           <div class="portfolio-thumb">
             <iframe src="https://www.youtube.com/embed/yxV0Yb5cbG8" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
             <div class="portfolio-overlay">
-              <span class="overlay-category">Event</span>
+              <span class="overlay-category">Videography</span>
               <span class="overlay-title">LIVE AT THE SHRINE</span>
             </div>
           </div>
           <div class="portfolio-meta">
             <span class="meta-title">Live at The Shrine</span>
-            <span class="meta-tag">Event</span>
+            <span class="meta-tag">Videography</span>
           </div>
         </div>
 
@@ -484,21 +489,6 @@
           <div class="portfolio-meta">
             <span class="meta-title">Kayaking</span>
             <span class="meta-tag">Editing</span>
-          </div>
-        </div>
-
-        <!-- ITEM 6 — Spaceholder Awards (event) -->
-        <div class="portfolio-item" data-category="event">
-          <div class="portfolio-thumb">
-            <iframe src="https://www.youtube.com/embed/ss_PwMJhChI" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
-            <div class="portfolio-overlay">
-              <span class="overlay-category">Event</span>
-              <span class="overlay-title">SPACEHOLDER AWARDS</span>
-            </div>
-          </div>
-          <div class="portfolio-meta">
-            <span class="meta-title">InStill Spaceholder Awards</span>
-            <span class="meta-tag">Event</span>
           </div>
         </div>
 
