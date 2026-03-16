@@ -189,18 +189,20 @@
     .portfolio-item.wide {
       grid-column: span 2;
     }
-
+    /* All thumbs get a consistent 16:9 height */
     .portfolio-thumb {
       position: relative;
       width: 100%;
+      padding-bottom: 56.25%;
       overflow: hidden;
       background: var(--dark3);
     }
-
     .portfolio-thumb img {
-      display: block;
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       transition: transform 0.5s ease;
     }
     .portfolio-thumb iframe {
@@ -210,19 +212,9 @@
       height: 100%;
       border: none;
     }
-    .portfolio-item.wide .portfolio-thumb {
-      padding-bottom: 56.25%;
-    }
-    .portfolio-item[data-category="video"] .portfolio-thumb,
-    .portfolio-item[data-category="editing"] .portfolio-thumb,
-    .portfolio-item[data-category="event"] .portfolio-thumb,
-    .portfolio-item[data-category="video event"] .portfolio-thumb {
-      padding-bottom: 56.25%;
-    }
-
-    /* Catch-all: any thumb containing an iframe gets height */
-    .portfolio-thumb:has(iframe) {
-      padding-bottom: 56.25%;
+    /* Burlap vertical override */
+    .portfolio-item .portfolio-thumb[style*="177"] {
+      padding-bottom: 177.78%;
     }
     .portfolio-item:hover .portfolio-thumb img { transform: scale(1.04); }
 
