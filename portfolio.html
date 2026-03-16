@@ -172,7 +172,6 @@
     .portfolio-grid {
       columns: 3;
       column-gap: 16px;
-      column-fill: balance;
     }
 
     /* ── Portfolio Item ── */
@@ -690,12 +689,6 @@
         item.classList.toggle('hidden', !match);
         if (match) visible++;
       });
-
-      // Adjust column count so items spread evenly
-      const grid = document.getElementById('portfolioGrid');
-      if (visible <= 2) grid.style.columns = '2';
-      else if (visible <= 3) grid.style.columns = '3';
-      else grid.style.columns = '3';
 
       document.getElementById('emptyState').classList.toggle('visible', visible === 0);
     }
