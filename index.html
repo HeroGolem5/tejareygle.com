@@ -597,6 +597,7 @@
           <div class="package-card featured" onclick="bookPackage('Videography — Standard ($350)')"><div class="pkg-name">Standard</div><div class="pkg-price">$350<span> flat</span></div><ul class="pkg-features"><li>2–3 hr shoot</li><li>1 video up to 3 min</li><li>Full post-production</li><li>Licensed music</li></ul><button class="pkg-book">Book This →</button></div>
           <div class="package-card" onclick="bookPackage('Videography — Premium ($550)')"><div class="pkg-name">Premium</div><div class="pkg-price">$550<span> flat</span></div><ul class="pkg-features"><li>Half day shoot</li><li>1 video up to 6 min</li><li>Full post-production</li><li>Licensed music</li></ul><button class="pkg-book">Book This →</button></div>
           <div class="package-card" onclick="bookPackage('Videography — Brand Video ($900)')"><div class="pkg-name">Brand Video</div><div class="pkg-price">$900<span> flat</span></div><ul class="pkg-features"><li>Full day shoot</li><li>2 videos up to 10 min</li><li>Full post-production</li><li>Licensed music</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card featured" onclick="bookConsult()"><div class="pkg-name">Off The Ground Production</div><div class="pkg-price" style="font-size:28px;color:var(--silver-dim);">Let's Talk</div><ul class="pkg-features"><li>Full day production</li><li>Off The Ground crew + gear</li><li>Multiple cameras</li><li>Drone footage</li><li>Full post-production</li></ul><button class="pkg-book">Book A Call →</button></div>
         </div>
       </div>
       <div id="tab-combo" class="tab-panel active">
@@ -605,6 +606,7 @@
           <div class="package-card featured" onclick="bookPackage('Combo — Event ($500)')"><div class="pkg-name">Event</div><div class="pkg-price">$500<span> flat</span></div><ul class="pkg-features"><li>4 hr shoot</li><li>50 edited photos</li><li>1 video up to 3 min</li></ul><button class="pkg-book">Book This →</button></div>
           <div class="package-card" onclick="bookPackage('Combo — Business ($850)')"><div class="pkg-name">Business</div><div class="pkg-price">$850<span> flat</span></div><ul class="pkg-features"><li>Full day shoot</li><li>80+ edited photos</li><li>2 videos</li></ul><button class="pkg-book">Book This →</button></div>
           <div class="package-card" onclick="bookPackage('Combo — Premium Brand ($1,200)')"><div class="pkg-name">Premium Brand</div><div class="pkg-price">$1,200<span> flat</span></div><ul class="pkg-features"><li>Full day shoot</li><li>120+ edited photos</li><li>3 videos + reels</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card featured" onclick="bookConsult()"><div class="pkg-name">Off The Ground Production</div><div class="pkg-price" style="font-size:28px;color:var(--silver-dim);">Let's Talk</div><ul class="pkg-features"><li>Full day production</li><li>Off The Ground crew + gear</li><li>Multiple cameras + drone</li><li>Photos + full video edit</li><li>Full post-production</li></ul><button class="pkg-book">Book A Call →</button></div>
         </div>
       </div>
       <div id="tab-editing" class="tab-panel">
@@ -617,9 +619,10 @@
       </div>
       <div id="tab-events" class="tab-panel">
         <div class="packages-grid">
-          <div class="package-card" onclick="bookPackage('Event — Basic ($175)')"><div class="pkg-name">Basic</div><div class="pkg-price">$175<span> flat</span></div><ul class="pkg-features"><li>2–3 hrs</li><li>Photos only</li><li>40 edited photos</li></ul><button class="pkg-book">Book This →</button></div>
-          <div class="package-card featured" onclick="bookPackage('Event — Standard ($325)')"><div class="pkg-name">Standard</div><div class="pkg-price">$325<span> flat</span></div><ul class="pkg-features"><li>3–4 hrs</li><li>Photos + highlight clip</li><li>Full post-production</li></ul><button class="pkg-book">Book This →</button></div>
-          <div class="package-card" onclick="bookPackage('Event — Full Coverage ($500)')"><div class="pkg-name">Full Coverage</div><div class="pkg-price">$500<span> flat</span></div><ul class="pkg-features"><li>Full event</li><li>Photos + full video edit</li><li>Full post-production</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Event — Award Show / Ceremony ($325)')"><div class="pkg-name">Award Show / Ceremony</div><div class="pkg-price">$325<span> flat</span></div><ul class="pkg-features"><li>3–4 hrs</li><li>Photos + highlight reel</li><li>Full post-production</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card featured" onclick="bookPackage('Event — Wedding ($500)')"><div class="pkg-name">Wedding</div><div class="pkg-price">$500<span> flat</span></div><ul class="pkg-features"><li>Full day coverage</li><li>Photos + full video edit</li><li>Full post-production</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Event — Party / Social ($175)')"><div class="pkg-name">Party / Social</div><div class="pkg-price">$175<span> flat</span></div><ul class="pkg-features"><li>2–3 hrs</li><li>Photos only</li><li>40 edited photos</li></ul><button class="pkg-book">Book This →</button></div>
+          <div class="package-card" onclick="bookPackage('Event — Concert / Live Show ($275)')"><div class="pkg-name">Concert / Live Show</div><div class="pkg-price">$275<span> flat</span></div><ul class="pkg-features"><li>Full show coverage</li><li>Photos + short highlight</li><li>Color graded delivery</li></ul><button class="pkg-book">Book This →</button></div>
         </div>
       </div>
 
@@ -632,6 +635,12 @@
           <div class="addon-item" onclick="toggleAddon(this)" data-addon="Same-Day Sneak Peek +$40"><span>Same-Day Sneak Peek</span><span>+$40</span></div>
           <div class="addon-item" onclick="toggleAddon(this)" data-addon="Additional Location +$75"><span>Additional Location</span><span>+$75</span></div>
           <div class="addon-item" onclick="toggleAddon(this)" data-addon="Licensed Music +$30"><span>Licensed Music</span><span>+$30</span></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:16px;">
+        <div class="addon-item" style="border-color:var(--dark4); cursor:default;">
+          <span style="color:var(--silver);">🤝 Referral Discount — Refer a client who books and get <strong style="color:var(--white);">$30 back</strong>.</span>
         </div>
       </div>
     </div>
@@ -692,7 +701,7 @@
                 <optgroup label="Videography"><option>Videography — Short-Form ($200)</option><option>Videography — Standard ($350)</option><option>Videography — Premium ($550)</option><option>Videography — Brand Video ($900)</option></optgroup>
                 <optgroup label="Photo + Video"><option>Combo — Starter ($300)</option><option>Combo — Event ($500)</option><option>Combo — Business ($850)</option><option>Combo — Premium Brand ($1,200)</option></optgroup>
                 <optgroup label="Editing Only"><option>Editing — Quick Cut ($75)</option><option>Editing — Standard ($150)</option><option>Editing — Advanced ($250)</option><option>Editing — Premium ($350+)</option></optgroup>
-                <optgroup label="Events"><option>Event — Basic ($175)</option><option>Event — Standard ($325)</option><option>Event — Full Coverage ($500)</option></optgroup>
+                <optgroup label="Events"><option>Event — Award Show / Ceremony ($325)</option><option>Event — Wedding ($500)</option><option>Event — Party / Social ($175)</option><option>Event — Concert / Live Show ($275)</option></optgroup>
                 <option>Custom / Not sure yet</option>
               </select>
             </div>
@@ -795,6 +804,15 @@
       document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
       document.getElementById('booking-'+name).classList.add('active');
       btn.classList.add('active');
+    }
+
+    // BOOK CONSULT — scroll to contact and switch to Book A Call tab
+    function bookConsult() {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('.booking-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('booking-consult').classList.add('active');
+      document.querySelectorAll('.toggle-btn')[1].classList.add('active');
     }
 
     // BOOK PACKAGE — scroll to contact and pre-select the service
