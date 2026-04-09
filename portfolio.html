@@ -172,6 +172,7 @@
     .portfolio-grid {
       columns: 3;
       column-gap: 16px;
+      column-fill: balance;
     }
 
     /* ── Portfolio Item ── */
@@ -620,6 +621,49 @@
           </div>
         </div>
 
+        <!-- WEDDING PHOTOS -->
+        <div class="portfolio-item" data-category="photo" onclick="openLightbox('wedding_1.jpg')">
+          <div class="portfolio-thumb">
+            <img src="wedding_1.jpg" alt="Wedding">
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Photography</span>
+              <span class="overlay-title">WEDDING</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Wedding</span>
+            <span class="meta-tag">Photography</span>
+          </div>
+        </div>
+
+        <div class="portfolio-item" data-category="photo" onclick="openLightbox('wedding_2.jpg')">
+          <div class="portfolio-thumb">
+            <img src="wedding_2.jpg" alt="Wedding">
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Photography</span>
+              <span class="overlay-title">WEDDING</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Wedding</span>
+            <span class="meta-tag">Photography</span>
+          </div>
+        </div>
+
+        <div class="portfolio-item" data-category="photo" onclick="openLightbox('wedding_3.jpg')">
+          <div class="portfolio-thumb">
+            <img src="wedding_3.jpg" alt="Wedding">
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Photography</span>
+              <span class="overlay-title">WEDDING</span>
+            </div>
+          </div>
+          <div class="portfolio-meta">
+            <span class="meta-title">Wedding</span>
+            <span class="meta-tag">Photography</span>
+          </div>
+        </div>
+
         <!-- empty state -->
         <div class="portfolio-empty" id="emptyState">No work in this category yet — check back soon.</div>
 
@@ -689,6 +733,12 @@
         item.classList.toggle('hidden', !match);
         if (match) visible++;
       });
+
+      // Adjust column count so items spread evenly
+      const grid = document.getElementById('portfolioGrid');
+      if (visible <= 2) grid.style.columns = '2';
+      else if (visible <= 3) grid.style.columns = '3';
+      else grid.style.columns = '3';
 
       document.getElementById('emptyState').classList.toggle('visible', visible === 0);
     }
