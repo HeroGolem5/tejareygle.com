@@ -786,6 +786,12 @@
       if (e.key === 'Escape') closeLightbox();
     });
 
+    // Run filter on load so data-allhidden items are hidden from All tab immediately
+    document.addEventListener('DOMContentLoaded', function() {
+      var allBtn = document.querySelector('.filter-btn.active');
+      if (allBtn) filterGrid('all', allBtn);
+    });
+
     // FILTER
     function filterGrid(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
